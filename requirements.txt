@@ -46,3 +46,12 @@ django-cors-headers==4.*
 
 # Dev extras
 # django-debug-toolbar==4.*
+
+gunicorn
+uvicorn[standard]
+whitenoise
+dj-database-url
+psycopg2-binary
+django-storages
+redis
+channels[daphne]
