@@ -108,6 +108,8 @@ SECURE_CONTENT_TYPE_NOSNIFF    = True
 SECURE_PROXY_SSL_HEADER        = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_HSTS_SECONDS            = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+USE_X_FORWARDED_HOST = True
+SECURE_SSL_REDIRECT = False
 
 # ── API keys ──────────────────────────────────────────────────────────────
 FCM_SERVER_KEY       = os.environ.get("FCM_SERVER_KEY", "")
