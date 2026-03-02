@@ -110,6 +110,7 @@ SECURE_HSTS_SECONDS            = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 USE_X_FORWARDED_HOST = True
 SECURE_SSL_REDIRECT = False
+APPEND_SLASH = False
 
 # ── API keys ──────────────────────────────────────────────────────────────
 FCM_SERVER_KEY       = os.environ.get("FCM_SERVER_KEY", "")
