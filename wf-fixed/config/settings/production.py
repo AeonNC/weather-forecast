@@ -1,15 +1,11 @@
-# ══════════════════════════════════════════════════════════════════════════
-# config/settings/production.py
-# ══════════════════════════════════════════════════════════════════════════
+
 import os
 import dj_database_url
 from .base import *  # noqa: F401, F403
 
 DEBUG = False
 
-# ── SECRET_KEY ────────────────────────────────────────────────────────────
-# Using .get() instead of [] so the error message is clear in Railway logs
-# (a bare KeyError gives no context at all)
+
 SECRET_KEY = config("SECRET_KEY")
 if not SECRET_KEY:
     raise RuntimeError(
@@ -17,7 +13,7 @@ if not SECRET_KEY:
         "Add it in Railway → your service → Variables."
     )
 
-# ── Hosts ─────────────────────────────────────────────────────────────────
+
 RAILWAY_DOMAIN = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "")
 ALLOWED_HOSTS = ["weather-forecast-yve7.onrender.com", "127.0.0.1", "localhost"]
 
@@ -27,8 +23,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.up.railway.app",
 ]
 
-# ── Database ──────────────────────────────────────────────────────────────
-# Railway auto-injects DATABASE_URL when a PostgreSQL plugin is attached
+
 DATABASE_URL = os.environ.get("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError(
@@ -44,8 +39,7 @@ DATABASES = {
     )
 }
 
-# ── Redis ─────────────────────────────────────────────────────────────────
-# Railway auto-injects REDIS_URL when a Redis plugin is attached
+
 REDIS_URL = os.environ.get("REDIS_URL")
 if not REDIS_URL:
     raise RuntimeError(
@@ -53,7 +47,7 @@ if not REDIS_URL:
         "Add a Redis plugin in Railway — it injects this automatically."
     )
 
-# ── Celery ────────────────────────────────────────────────────────────────
+
 CELERY_BROKER_URL        = REDIS_URL
 CELERY_RESULT_BACKEND    = REDIS_URL
 CELERY_ACCEPT_CONTENT    = ["json"]
@@ -61,7 +55,7 @@ CELERY_TASK_SERIALIZER   = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE          = "UTC"
 
-# ── Django Channels (WebSockets) ──────────────────────────────────────────
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -73,8 +67,7 @@ CHANNEL_LAYERS = {
     }
 }
 
-# ── Static files — WhiteNoise ─────────────────────────────────────────────
-# WhiteNoise must sit directly after SecurityMiddleware
+
 _mw = list(MIDDLEWARE)  # noqa: F405
 for _m in ("django.middleware.security.SecurityMiddleware",
            "whitenoise.middleware.WhiteNoiseMiddleware"):
@@ -93,7 +86,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL  = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # noqa: F405
 
-# ── HTTPS ─────────────────────────────────────────────────────────────────
+
 SECURE_SSL_REDIRECT            = True
 SESSION_COOKIE_SECURE          = True
 CSRF_COOKIE_SECURE             = True
@@ -103,14 +96,13 @@ SECURE_PROXY_SSL_HEADER        = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_HSTS_SECONDS            = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-# ── API keys ──────────────────────────────────────────────────────────────
+
 FCM_SERVER_KEY       = os.environ.get("FCM_SERVER_KEY", "")
 WEATHER_API_KEY      = os.environ.get("WEATHER_API_KEY", "")
 WEATHER_API_BASE_URL = os.environ.get(
     "WEATHER_API_BASE_URL", "https://api.openweathermap.org/data/2.5"
 )
 
-# ── Logging — force everything to stdout immediately ──────────────────────
 LOGGING = {
     "version":                  1,
     "disable_existing_loggers": False,

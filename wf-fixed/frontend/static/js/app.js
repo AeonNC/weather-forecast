@@ -1,10 +1,5 @@
-/* ══════════════════════════════════════════════════════════════════
-   app.js – main application logic
-   Handles: GPS, search, data fetching, rendering, offline, theme
-══════════════════════════════════════════════════════════════════ */
 'use strict';
 
-// ── App state ──────────────────────────────────────────────────────
 const State = {
     lat: null,
     lon: null,
@@ -14,7 +9,6 @@ const State = {
     data: null,
 };
 
-// ── Bootstrap ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     applyStoredTheme();
     document.getElementById('unitSelect').value = State.units;
@@ -24,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     bindSearchInput();
 });
 
-// ── GPS & location ──────────────────────────────────────────────────
 function detectGPS() {
     if (!navigator.geolocation) { loadDefault(); return; }
     showLoading(true);
@@ -60,7 +53,6 @@ async function reverseGeocode(lat, lon) {
     } catch { return `${lat.toFixed(2)}, ${lon.toFixed(2)}`; }
 }
 
-// ── Main data loader ────────────────────────────────────────────────
 async function loadAll() {
     showLoading(true);
     try {
@@ -87,7 +79,6 @@ function reloadData() {
     if (State.lat) loadAll();
 }
 
-// ── Render ─────────────────────────────────────────────────────────
 function renderAll(d) {
     renderCurrent(d.current);
     renderAlerts(d.alerts);
@@ -187,7 +178,6 @@ function renderDaily(days) {
   `).join('');
 }
 
-// ── Day / Night background ─────────────────────────────────────────
 function updateDayNight(sunriseTs, sunsetTs, tzOffset) {
     const utcNow = Date.now() / 1000;
     const localNow = utcNow + (tzOffset || 0);
@@ -199,7 +189,6 @@ function updateDayNight(sunriseTs, sunsetTs, tzOffset) {
     }
 }
 
-// ── Theme ──────────────────────────────────────────────────────────
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark-mode');
     State.theme = isDark ? 'dark' : 'light';
@@ -214,7 +203,6 @@ function applyStoredTheme() {
     }
 }
 
-// ── Search ─────────────────────────────────────────────────────────
 function bindSearchInput() {
     const input = document.getElementById('citySearch');
     let debounce;
@@ -257,14 +245,15 @@ async function searchLocation() {
 }
 
 
-// ── Offline / cache ────────────────────────────────────────────────
 function persistCache(d) { try { localStorage.setItem('wx_cache', JSON.stringify(d)); } catch {} }
 
 function loadFromCache() {
     try {
         const raw = localStorage.getItem('wx_cache');
-        if (raw) { renderAll(JSON.parse(raw));
-            showOfflineToast(); }
+        if (raw) {
+            renderAll(JSON.parse(raw));
+            showOfflineToast();
+        }
     } catch {}
 }
 
@@ -285,7 +274,6 @@ function registerServiceWorker() {
         navigator.serviceWorker.register('/static/js/sw.js').catch(console.warn);
 }
 
-// ── Utils ──────────────────────────────────────────────────────────
 function $(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
 
 function fmtTime(ts, tzOff = 0) {

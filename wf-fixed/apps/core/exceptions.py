@@ -1,6 +1,4 @@
-# ══════════════════════════════════════════════════════════════════════════
-# apps/core/exceptions.py
-# ══════════════════════════════════════════════════════════════════════════
+
 """Custom DRF exception handler for consistent error envelopes."""
 import logging
 from rest_framework.views import exception_handler

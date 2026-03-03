@@ -1,6 +1,4 @@
-# ══════════════════════════════════════════════════════════════════════════
-# config/celery.py
-# ══════════════════════════════════════════════════════════════════════════
+
 import os
 from celery import Celery
 from celery.schedules import crontab
@@ -11,7 +9,6 @@ app = Celery('weather_platform')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
-# ── Periodic task schedule ────────────────────────────────────────────────
 app.conf.beat_schedule = {
     # Refresh all saved locations every 10 minutes
     'refresh-all-locations-every-10min': {

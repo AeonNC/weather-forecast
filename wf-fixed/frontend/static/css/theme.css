@@ -1,12 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════════
-   WeatherSense – theme.css
-   Supports: light mode, dark mode (auto + manual), day/night card bg,
-   RTL layout, PWA safe-areas.
-═══════════════════════════════════════════════════════════════════ */
-
-
-/* ── CSS Custom Properties ──────────────────────────────────────── */
-
 :root {
     --bg: #f0f4f8;
     --surface: #ffffff;
@@ -35,9 +26,6 @@
     --text-muted: #94a3b8;
     --shadow: 0 4px 24px rgba(0, 0, 0, .4);
 }
-
-
-/* ── Reset ──────────────────────────────────────────────────────── */
 
 *,
 *::before,
@@ -70,9 +58,6 @@ select,
 input {
     font: inherit;
 }
-
-
-/* ── Topbar ──────────────────────────────────────────────────────── */
 
 .topbar {
     position: sticky;
@@ -180,9 +165,6 @@ select {
     cursor: pointer;
 }
 
-
-/* ── Alert Banner ────────────────────────────────────────────────── */
-
 .alert-banner {
     display: flex;
     align-items: center;
@@ -223,9 +205,6 @@ select {
     }
 }
 
-
-/* ── Main Grid ───────────────────────────────────────────────────── */
-
 .grid {
     display: grid;
     gap: 16px;
@@ -240,9 +219,6 @@ select {
         grid-template-areas: none;
     }
 }
-
-
-/* ── Cards ───────────────────────────────────────────────────────── */
 
 .card {
     background: var(--surface);
@@ -268,9 +244,6 @@ select {
     color: var(--text-muted);
     margin-bottom: 14px;
 }
-
-
-/* ── Current Card ────────────────────────────────────────────────── */
 
 .current-card {
     grid-area: current;
@@ -349,9 +322,6 @@ select {
     color: var(--text-muted);
 }
 
-
-/* ── Metrics ─────────────────────────────────────────────────────── */
-
 .metrics-card {
     grid-area: metrics;
 }
@@ -386,9 +356,6 @@ select {
     font-size: 1rem;
     font-weight: 700;
 }
-
-
-/* ── AQI ─────────────────────────────────────────────────────────── */
 
 .aqi-card {
     grid-area: aqi;
@@ -437,9 +404,6 @@ select {
     color: var(--text);
 }
 
-
-/* ── Charts ──────────────────────────────────────────────────────── */
-
 .chart-card {
     grid-area: chart;
 }
@@ -447,9 +411,6 @@ select {
 .chart-card canvas {
     max-height: 200px;
 }
-
-
-/* ── 7-Day Strip ─────────────────────────────────────────────────── */
 
 .forecast-card {
     grid-area: forecast;
@@ -489,9 +450,6 @@ select {
     margin-top: 4px;
 }
 
-
-/* ── Radar Map ───────────────────────────────────────────────────── */
-
 .map-card {
     grid-area: map;
 }
@@ -525,9 +483,6 @@ select {
     color: #fff;
     border-color: var(--accent-dark);
 }
-
-
-/* ── Lifestyle ───────────────────────────────────────────────────── */
 
 .lifestyle-card {
     grid-area: lifestyle;
@@ -641,9 +596,6 @@ select {
     color: #7c3aed;
 }
 
-
-/* ── Locations ───────────────────────────────────────────────────── */
-
 .locations-card {
     grid-area: locations;
 }
@@ -689,9 +641,6 @@ select {
     background: var(--accent-dark);
 }
 
-
-/* ── Loading Overlay ─────────────────────────────────────────────── */
-
 .loading-overlay {
     position: fixed;
     inset: 0;
@@ -723,9 +672,6 @@ select {
     }
 }
 
-
-/* ── Toast ───────────────────────────────────────────────────────── */
-
 .toast {
     position: fixed;
     bottom: 24px;
@@ -755,9 +701,6 @@ select {
         transform: translateX(-50%) translateY(0);
     }
 }
-
-
-/* ── RTL support ─────────────────────────────────────────────────── */
 
 [dir="rtl"] .topbar {
     flex-direction: row-reverse;

@@ -24,7 +24,6 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'django_celery_beat',
     'django_celery_results',
-    # django_redis is a cache backend, NOT a Django app — do NOT add here
     'rosetta',
 ]
 
@@ -72,7 +71,6 @@ TEMPLATES = [
     },
 ]
 
-# ── Database (SQLite) ─────────────────────────────────────────────────────
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,7 +85,6 @@ DATABASES = {
     }
 }
 
-# ── Cache (Redis) ─────────────────────────────────────────────────────────
 REDIS_URL = config('REDIS_URL', default='redis://redis:6379')
 
 CACHES = {
@@ -109,7 +106,6 @@ CACHES = {
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 
-# ── Channels (WebSocket) ──────────────────────────────────────────────────
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -117,7 +113,7 @@ CHANNEL_LAYERS = {
     }
 }
 
-# ── Celery ────────────────────────────────────────────────────────────────
+
 CELERY_BROKER_URL         = f'{REDIS_URL}/2'
 CELERY_RESULT_BACKEND     = 'django-db'
 CELERY_BEAT_SCHEDULER     = 'django_celery_beat.schedulers:DatabaseScheduler'
@@ -129,7 +125,6 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT    = 300
 CELERY_WORKER_PREFETCH_MULTIPLIER = 4
 
-# ── REST Framework ────────────────────────────────────────────────────────
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -154,17 +149,16 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS':  True,
 }
 
-# ── External APIs ─────────────────────────────────────────────────────────
-# Open-Meteo — completely free, no API key required
+
 OPEN_METEO_BASE_URL = 'https://api.open-meteo.com/v1/forecast'
 OPEN_METEO_AIR_URL  = 'https://air-quality-api.open-meteo.com/v1/air-quality'
-# Open-Meteo geocoding (powered by Nominatim — also free, no key)
+
 OPEN_METEO_GEO_URL  = 'https://geocoding-api.open-meteo.com/v1/search'
 
-# ── Firebase ──────────────────────────────────────────────────────────────
+
 FIREBASE_CREDENTIALS_PATH = config('FIREBASE_CREDENTIALS_PATH', default='firebase.json')
 
-# ── Internationalisation ──────────────────────────────────────────────────
+
 LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en',      'English'),
@@ -182,7 +176,7 @@ USE_TZ      = True
 TIME_ZONE   = 'UTC'
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
-# ── Static & Media ────────────────────────────────────────────────────────
+
 STATIC_URL   = '/static/'
 STATIC_ROOT  = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'frontend' / 'static']
@@ -190,18 +184,18 @@ MEDIA_URL    = '/media/'
 MEDIA_ROOT   = BASE_DIR / 'media'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# ── Auth ──────────────────────────────────────────────────────────────────
+
 AUTH_USER_MODEL = 'users.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ── CORS ──────────────────────────────────────────────────────────────────
+
 CORS_ALLOWED_ORIGINS = config(
     'CORS_ALLOWED_ORIGINS',
     cast=lambda v: [s.strip() for s in v.split(',')],
     default='http://localhost:3000',
 )
 
-# ── Logging ───────────────────────────────────────────────────────────────
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
