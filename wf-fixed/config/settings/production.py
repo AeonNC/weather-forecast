@@ -10,7 +10,7 @@ DEBUG = False
 # ── SECRET_KEY ────────────────────────────────────────────────────────────
 # Using .get() instead of [] so the error message is clear in Railway logs
 # (a bare KeyError gives no context at all)
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 if not SECRET_KEY:
     raise RuntimeError(
         "CRITICAL: DJANGO_SECRET_KEY env var not set. "
@@ -19,13 +19,7 @@ if not SECRET_KEY:
 
 # ── Hosts ─────────────────────────────────────────────────────────────────
 RAILWAY_DOMAIN = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "")
-ALLOWED_HOSTS = [h for h in [
-    RAILWAY_DOMAIN,
-    ".railway.app",
-    ".up.railway.app",
-    "localhost",
-    "127.0.0.1",
-] if h]
+ALLOWED_HOSTS = ["weather-forecast-yve7.onrender.com", "127.0.0.1", "localhost"]
 
 CSRF_TRUSTED_ORIGINS = [
     f"https://{RAILWAY_DOMAIN}",
